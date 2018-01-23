@@ -62,7 +62,22 @@ const config = {
         NODE_ENV:isDev ? '"development"':'"production"'
       }
     }),
-    new HTMLPlugin()
+    new HTMLPlugin(
+      {
+        template: './index.html',
+        filename: 'index.html',
+        chunks: ['index', 'common']
+      }
+    ),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common',
+      filename: '[name].[hash].js',
+      chunks: ['index', 'common']    // extract commonChunk  from index & common
+    }),
+    new webpack.ProvidePlugin({
+      jQuery: "jquery"
+    }),
+    new webpack.optimize.UglifyJsPlugin()
   ]
 }
 
