@@ -1,5 +1,5 @@
 <template>
-  <div id="myKline" :style="{width: '600px', height: '600px',margin:'50px',padding:'50px'}"></div>
+  <div id="myKline" :style="{width: '1200px', height: '1000px',margin:'50px',padding:'50px'}"></div>
 
 </template>
 
