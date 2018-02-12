@@ -2,7 +2,7 @@
   <div id="firstcomponent">
     <h1>I am a componen23.</h1>
     <a> written by {{ author }} </a>
-    <KLine2></KLine2>
+    <RqImage></RqImage>
   </div>
 </template>
 
@@ -10,6 +10,7 @@
   import ZLine from './App2.vue'
   import KLine from './AppKline.vue'
   import KLine2 from './AppKline2.vue'
+  import RqImage from './AppQrImage.vue'
   export default {
     data () {
       return {
@@ -19,7 +20,8 @@
     components:{
       ZLine,
       KLine,
-      KLine2
+      KLine2,
+      RqImage
     }
   }
 </script>
