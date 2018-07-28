@@ -33,9 +33,12 @@ require("./common/qrcode")
               var ticks = { "cmd":"ticks",
                               "channel":"add",
                               "symbols":["SYS_ETH","EOS_BTC"]}
-
+              var depth =  {"cmd":"depth","channel":"add","symbol":"EOS_ETH"}
+              var allab = {"cmd":"allAB"}
               var cmd_ping = JSON.stringify(ping)
               var cmd_ticks = JSON.stringify(ticks)
+              var cmd_depth = JSON.stringify(depth)
+              var cmd_allab = JSON.stringify(allab)
 
               var keepalive = function(){
                 ws.send(cmd_ping);
@@ -46,8 +49,10 @@ require("./common/qrcode")
               console.log("cmd_ticks  " + cmd_ticks)
                    ws.send(cmd_ping)
                    ws.send(cmd_ticks)
+                   ws.send(cmd_depth)
+                   ws.send(cmd_allab)
                    console.log('数据发送中...')
-                   setInterval(keepalive,5000);
+                   setInterval(keepalive,50000);
                }
                ws.onmessage = evt => {
                   var msg = evt.data
