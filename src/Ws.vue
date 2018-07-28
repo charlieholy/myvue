@@ -29,12 +29,25 @@ require("./common/qrcode")
        websocket () {
               let ws = new WebSocket('ws://47.75.144.95:12389')
               let pako = require('pako')
-              var cmd = {"cmd":"ping"}
+              var ping = {"cmd":"ping"}
+              var ticks = { "cmd":"ticks",
+                              "channel":"add",
+                              "symbols":["SYS_ETH","EOS_BTC"]}
+
+              var cmd_ping = JSON.stringify(ping)
+              var cmd_ticks = JSON.stringify(ticks)
+
+              var keepalive = function(){
+                ws.send(cmd_ping);
+              }
+
               ws.onopen = () => {
-              var s = JSON.stringify(cmd)
-              console.log("cmd  " + s)
-                   ws.send( s)
+              console.log("cmd_ping  " + cmd_ping)
+              console.log("cmd_ticks  " + cmd_ticks)
+                   ws.send(cmd_ping)
+                   ws.send(cmd_ticks)
                    console.log('数据发送中...')
+                   setInterval(keepalive,5000);
                }
                ws.onmessage = evt => {
                   var msg = evt.data
@@ -51,7 +64,7 @@ require("./common/qrcode")
                this.over = () => {
                 console.log("close")
                  ws.close()
-               }
+              }
          }
 
     }
