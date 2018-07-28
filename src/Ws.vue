@@ -28,6 +28,7 @@ require("./common/qrcode")
 
        websocket () {
               let ws = new WebSocket('ws://47.75.144.95:12389')
+              let pako = require('pako')
               var cmd = {"cmd":"ping"}
               ws.onopen = () => {
               var s = JSON.stringify(cmd)
@@ -36,7 +37,12 @@ require("./common/qrcode")
                    console.log('数据发送中...')
                }
                ws.onmessage = evt => {
-                  console.log("res");
+                  var msg = evt.data
+                  console.log("res " + msg);
+                  var b64 = new Buffer(msg, 'base64')
+                  var json = pako.inflate(new Uint8Array(b64), {to: 'string'});
+                  var sss = decodeURIComponent(json)
+                  console.log("ressss " + sss)
                }
                ws.onclose = function () {
                  console.log('连接已关闭...')
